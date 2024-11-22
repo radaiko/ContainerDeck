@@ -1,0 +1,43 @@
+﻿@inherits LayoutComponentBase
+
+@inject NavigationManager NavigationManager
+
+<FluentToastProvider />
+<FluentDialogProvider />
+<FluentTooltipProvider />
+<FluentMessageBarProvider />
+<FluentMenuProvider />
+
+<FluentDesignTheme StorageName="theme" />
+
+<div class="d-flex">
+    <div class="sidebar">
+        <FluentIcon Value="@(new Icons.Regular.Size24.AppFolder())" @onclick="() => NavigateToPath(DashboardPath)"
+            class="nav-link-hover nav-link-hover-dashboard nav-icon" />
+        <FluentIcon Value="@(new Icons.Regular.Size24.Image())" @onclick="() => NavigateToPath(ImagesPath)"
+            class="nav-link-hover nav-link-hover-images nav-icon" />
+        <FluentIcon Value="@(new Icons.Regular.Size24.Cube())" @onclick="() => NavigateToPath(ContainersPath)"
+            class="nav-link-hover nav-link-hover-containers nav-icon" />
+        <FluentIcon Value="@(new Icons.Regular.Size24.Database())" @onclick="() => NavigateToPath(VolumesPath)"
+            class="nav-link-hover nav-link-hover-volumes nav-icon" />
+        <FluentIcon Value="@(new Icons.Regular.Size24.ScanPerson())" @onclick="() => NavigateToPath(AgentsPath)"
+            class="nav-link-hover nav-link-hover-agents nav-icon" />
+    </div>
+    <div class="main-container ma-4">
+        @Body
+    </div>
+</div>
+
+@code
+{
+    private string DashboardPath = "/dashboard";
+    private string ImagesPath = "/images";
+    private string ContainersPath = "/containers";
+    private string VolumesPath = "/volumes";
+    private string AgentsPath = "/agents";
+
+    private void NavigateToPath(string path)
+    {
+        NavigationManager.NavigateTo(path);
+    }
+}

@@ -1,0 +1,18 @@
+﻿@page "/"
+@using ContainerDeck.Shared.Services
+
+<PageTitle>Home</PageTitle>
+
+@code
+{
+    [Inject]
+    private NavigationManager Navigation { get; set; }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Navigation.NavigateTo("/dashboard");
+        }
+    }
+}

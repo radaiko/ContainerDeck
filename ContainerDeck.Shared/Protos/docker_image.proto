@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option csharp_namespace = "ContainerDeck.Shared.Protos";
+
+package Docker;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+service DockerImage {
+  rpc GetImages (google.protobuf.Empty) returns (ProtoImagesResponse){};
+  rpc GetImage (ProtoImageRequest) returns (ProtoImageResponse){};
+}
+
+message ProtoImageRequest {
+  string id = 1;
+}
+
+message ProtoImageResponse {
+  string id = 1;
+  string name = 2;
+  string tag = 3;
+  bool is_used = 4;
+  google.protobuf.Timestamp created = 5;
+  int64 size = 6;
+  bool is_update_available = 7;
+}
+
+message ProtoImagesResponse {
+  repeated ProtoImageResponse images = 1;
+}

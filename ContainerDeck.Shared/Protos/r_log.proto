@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option csharp_namespace = "ContainerDeck.Shared.Protos";
+
+import "google/protobuf/timestamp.proto";
+
+service Log {
+  rpc StreamLogs (LogRequest) returns (stream LogEntry);
+  rpc GetLogs (LogRequest) returns (LogResponse);
+}
+
+message LogEntry {
+  string message = 1;
+  google.protobuf.Timestamp timestamp = 2;
+  string filename = 3;
+  int32 line_number = 4;
+  LogLevel type = 5;
+}
+
+message LogResponse {
+  repeated LogEntry entries = 1;
+}
+
+message LogRequest { 
+  string client_id = 1; 
+}
+
+enum LogLevel {
+  Unknown = 0;
+  INFO = 1;
+  WARNING = 2;
+  ERROR = 3;
+  Debug = 4;
+}

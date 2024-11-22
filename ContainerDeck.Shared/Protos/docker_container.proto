@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+option csharp_namespace = "ContainerDeck.Shared.Protos";
+
+package Docker;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+service DockerContainer {
+  rpc GetContainers (google.protobuf.Empty) returns (ProtoContainersResponse){};
+  rpc GetContainer (ProtoContainerRequest) returns (ProtoContainerResponse){};
+  rpc GetContainerInspect (ProtoContainerInspectRequest) returns (ProtoContainerInspectResponse){};
+  rpc StreamLog (ProtoContainerLogRequest) returns (stream ProtoContainerLogResponse){};
+}
+
+// General Container 
+message ProtoContainerRequest {
+  string id = 1;
+}
+
+message ProtoContainersResponse {
+  repeated ProtoContainerResponse containers = 1;
+}
+
+message ProtoContainerResponse {
+    ProtoContainerConfig config = 1;
+    ProtoContainerStats stats = 2;
+}
+
+message ProtoContainerConfig {
+  string name = 1;                // container name
+  string image = 2;               // image name
+  string image_id = 3;            // image id
+  repeated string ports = 4;      // host:container
+  repeated string volumes = 5;    // host:container
+  repeated string labels = 6;     // key=value
+  string restart_policy = 7;      // always, unless-stopped, etc.
+}
+
+message ProtoContainerStats {
+  string id = 1;                  // container id
+  string status = 2;              // running, stopped, etc.
+  uint64 memory_usage = 3;         // memory usage in bytes
+  uint64 memory_limit = 4;         // memory limit in bytes
+  double cpu_usage = 5;            // cpu usage in nanoseconds
+  google.protobuf.Timestamp last_started = 7;
+  uint64 network_rx = 8;           // network in traffic in bytes
+  uint64 network_tx = 9;           // network out traffic in bytes
+}
+
+// Inspect
+message ProtoContainerInspectRequest {
+  string id = 1;
+}
+
+message ProtoContainerInspectResponse {
+  string inspect = 1;
+}
+
+// Log
+message ProtoContainerLogRequest {
+  string id = 1;
+}
+
+message ProtoContainerLogResponse {
+  string message = 1;
+}

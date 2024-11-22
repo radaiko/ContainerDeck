@@ -1,0 +1,3 @@
+obj/Debug/net9.0/Protos/Base.cs \
+obj/Debug/net9.0/Protos/BaseGrpc.cs: /Users/aikoradlingmayr/.nuget/packages/grpc.tools/2.67.0/build/native/include/google/protobuf/empty.proto\
+ Protos/base.proto

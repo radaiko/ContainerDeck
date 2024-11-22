@@ -1,0 +1,62 @@
+@page "/agents"
+@using ContainerDeck.Shared.Utils
+@using Microsoft.Extensions.Logging
+
+@inject IDialogService DialogService
+@* @inject AgentsService AgentService *@
+
+<PageTitle>Agents</PageTitle>
+
+@* <div class="d-flex">
+    <MudText Typo="Typo.h4">Agents</MudText>
+    <MudSpacer />
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="ShowAddAgentDialog">Add New Agent</MudButton>
+</div>
+<MudTable T="Agent" Items="@AgentService.Get()" Hover="true" Class="mt-4">
+    <HeaderContent>
+        <MudTh>Icon</MudTh>
+        <MudTh>Name</MudTh>
+        <MudTh>Address</MudTh>
+        <MudTh>Agent</MudTh>
+        <MudTh>Docker</MudTh>
+        <MudTh>Actions</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <AgentRow Agent="context"></AgentRow>
+    </RowTemplate>
+</MudTable> *@
+
+
+@code
+{
+    [Inject]
+    private ILogger<AgentsPage> Logger { get; set; } = Hub.GetLogger<AgentsPage>();
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            @* Action d = async () => await UpdateUi();
+            AgentService.Detach(d);
+            AgentService.AgentsChanged += d; *@
+        }
+    }
+
+    @* private async Task UpdateUi()
+    {
+        Logger.LogDebug("UpdateUi");
+        await InvokeAsync(StateHasChanged);
+    }
+    private async Task ShowAddAgentDialog()
+    {
+        var parameters = new DialogParameters<AddAgentDialog> { { x => x.OnSave, EventCallback.Factory.Create<Agent>(this,
+AddAgent) } };
+        var options = new DialogOptions { MaxWidth = MaxWidth.ExtraLarge, FullWidth = true };
+        await DialogService.ShowAsync<AddAgentDialog>("", parameters, options);
+    } *@
+
+    private void AddAgent(Agent agent)
+    {
+        @* AgentService.Add(agent); *@
+    }
+}

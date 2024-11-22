@@ -1,0 +1,4 @@
+obj/Debug/net9.0/Protos/DockerContainer.cs \
+obj/Debug/net9.0/Protos/DockerContainerGrpc.cs: /Users/aikoradlingmayr/.nuget/packages/grpc.tools/2.67.0/build/native/include/google/protobuf/empty.proto\
+ /Users/aikoradlingmayr/.nuget/packages/grpc.tools/2.67.0/build/native/include/google/protobuf/timestamp.proto\
+ Protos/docker_container.proto

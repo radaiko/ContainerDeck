@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option csharp_namespace = "ContainerDeck.Shared";
+
+import "google/protobuf/empty.proto";
+
+service Health {
+  rpc GetHealth (google.protobuf.Empty) returns (HealthResponse){};
+}
+
+message HealthResponse {
+  HealthStatus status = 1;
+}
+
+enum HealthStatus {
+  Unknown = 0;
+  Healthy = 1;
+  Unhealthy = 2;
+}

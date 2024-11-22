@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+option csharp_namespace = "ContainerDeck.Shared.Protos";
+
+package Docker;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/struct.proto";
+
+service DockerVolume {
+  rpc GetVolumes (google.protobuf.Empty) returns (ProtoVolumesResponse){};
+  rpc GetVolume (ProtoVolumeRequest) returns (ProtoVolumeResponse){};
+  //rpc GetVolumeInspect (ProtoVolumeInspectRequest) returns (ProtoVolumeInspectResponse){};
+}
+
+message ProtoVolumeRequest {
+  string id = 1;
+}
+
+message ProtoVolumesResponse {
+  repeated ProtoVolumeResponse volumes = 1;
+}
+
+message ProtoVolumeResponse {
+  string name = 1;
+  google.protobuf.Timestamp created = 2;
+  string driver = 3;
+  string mountpoint = 4;
+  map<string, google.protobuf.Value> status = 5;
+  map<string, string> labels = 6;
+  map<string, string> options = 7;
+  string scope = 8;
+  ProtoVolumeUsageData usage = 9;
+}
+
+message ProtoVolumeUsageData {
+  float ref_count = 1;
+  float size = 2;
+}

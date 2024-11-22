@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option csharp_namespace = "ContainerDeck.Shared.Protos";
+
+package Docker;
+
+import "google/protobuf/empty.proto";
+
+service DockerSystem {
+  rpc GetVersion (google.protobuf.Empty) returns (VersionResponse);
+}
+
+message VersionResponse {
+  string version_string = 1;
+}

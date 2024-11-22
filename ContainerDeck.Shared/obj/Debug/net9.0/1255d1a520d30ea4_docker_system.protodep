@@ -1,0 +1,3 @@
+obj/Debug/net9.0/Protos/DockerSystem.cs \
+obj/Debug/net9.0/Protos/DockerSystemGrpc.cs: /Users/aikoradlingmayr/.nuget/packages/grpc.tools/2.67.0/build/native/include/google/protobuf/empty.proto\
+ Protos/docker_system.proto
