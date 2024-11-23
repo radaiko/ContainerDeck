@@ -1,3 +1,0 @@
-obj/Debug/net9.0/Protos/RLog.cs \
-obj/Debug/net9.0/Protos/RLogGrpc.cs: /Users/aikoradlingmayr/.nuget/packages/grpc.tools/2.67.0/build/native/include/google/protobuf/timestamp.proto\
- Protos/r_log.proto
