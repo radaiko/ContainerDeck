@@ -133,3 +133,9 @@ body {
     width: 100%;
     display: flex;
 }
+
+.action-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

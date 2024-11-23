@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "z4XJxm0j3A489qDr4uitTmbw1mg6aD/Fjtn1dlX6QCE=",
+  "Hash": "ru9P/tu3A0srVSy1UkDPhWyQLAnu4o/L2E7Z/jgoCgg=",
   "Source": "ContainerDeck.Shared",
   "BasePath": "_content/ContainerDeck.Shared",
   "Mode": "Default",
@@ -899,12 +899,12 @@
       "OriginalItemSpec": "/Users/aikoradlingmayr/.nuget/packages/microsoft.fluentui.aspnetcore.components/4.10.4/staticwebassets/Components/Slider/FluentSliderLabel.razor.js"
     },
     {
-      "Identity": "/Users/aikoradlingmayr/Git/PRIVAT/ContainerDeck/ContainerDeck.Shared/obj/Debug/net9.0/compressed/5rm9dfyz1n-6g9tesqdhf.gz",
+      "Identity": "/Users/aikoradlingmayr/Git/PRIVAT/ContainerDeck/ContainerDeck.Shared/obj/Debug/net9.0/compressed/5rm9dfyz1n-i6nmtc7urf.gz",
       "SourceId": "ContainerDeck.Shared",
       "SourceType": "Discovered",
       "ContentRoot": "/Users/aikoradlingmayr/Git/PRIVAT/ContainerDeck/ContainerDeck.Shared/obj/Debug/net9.0/compressed/",
       "BasePath": "_content/ContainerDeck.Shared",
-      "RelativePath": "custom#[.{fingerprint=6g9tesqdhf}]?.css.gz",
+      "RelativePath": "custom#[.{fingerprint=i6nmtc7urf}]?.css.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -913,8 +913,8 @@
       "RelatedAsset": "/Users/aikoradlingmayr/Git/PRIVAT/ContainerDeck/ContainerDeck.Shared/wwwroot/custom.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "w0jwn0eo2n",
-      "Integrity": "sIDUcJw1sWmnE+SjFp6ZFbrG7JYCecuDEv+BuingOYg=",
+      "Fingerprint": "a9nbcbnbnn",
+      "Integrity": "fhKLxoPQAQJ+zvgYWWzcMC9iQkDWHGBOYG3gGXBP1jQ=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "/Users/aikoradlingmayr/Git/PRIVAT/ContainerDeck/ContainerDeck.Shared/wwwroot/custom.css"
@@ -1732,8 +1732,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "6g9tesqdhf",
-      "Integrity": "6ozcrNRDujLZ3D3uKoZUEepzRFi0Q7RBXg7g8dmMyqw=",
+      "Fingerprint": "i6nmtc7urf",
+      "Integrity": "2vtCgRql2sIsUyV4DWEO3yAX2S0LBtwGvBMs80EjilM=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/custom.css"
@@ -8322,13 +8322,13 @@
       ]
     },
     {
-      "Route": "custom.6g9tesqdhf.css",
-      "AssetFile": "/Users/aikoradlingmayr/Git/PRIVAT/ContainerDeck/ContainerDeck.Shared/obj/Debug/net9.0/compressed/5rm9dfyz1n-6g9tesqdhf.gz",
+      "Route": "custom.css",
+      "AssetFile": "/Users/aikoradlingmayr/Git/PRIVAT/ContainerDeck/ContainerDeck.Shared/obj/Debug/net9.0/compressed/5rm9dfyz1n-i6nmtc7urf.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.001321003963"
+          "Quality": "0.001293661061"
         }
       ],
       "ResponseHeaders": [
@@ -8338,19 +8338,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "756"
+          "Value": "772"
         },
         {
           "Name": "ETag",
-          "Value": "\"sIDUcJw1sWmnE+SjFp6ZFbrG7JYCecuDEv+BuingOYg=\""
+          "Value": "\"fhKLxoPQAQJ+zvgYWWzcMC9iQkDWHGBOYG3gGXBP1jQ=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 22 Nov 2024 23:01:23 GMT"
+          "Value": "Sat, 23 Nov 2024 21:49:50 GMT"
         },
         {
           "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
+          "Value": "no-cache"
         },
         {
           "Name": "Content-Encoding",
@@ -8366,26 +8366,18 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"6ozcrNRDujLZ3D3uKoZUEepzRFi0Q7RBXg7g8dmMyqw=\""
+          "Value": "W/\"2vtCgRql2sIsUyV4DWEO3yAX2S0LBtwGvBMs80EjilM=\""
         }
       ],
       "EndpointProperties": [
         {
-          "Name": "fingerprint",
-          "Value": "6g9tesqdhf"
-        },
-        {
-          "Name": "label",
-          "Value": "custom.css"
-        },
-        {
           "Name": "integrity",
-          "Value": "sha256-6ozcrNRDujLZ3D3uKoZUEepzRFi0Q7RBXg7g8dmMyqw="
+          "Value": "sha256-2vtCgRql2sIsUyV4DWEO3yAX2S0LBtwGvBMs80EjilM="
         }
       ]
     },
     {
-      "Route": "custom.6g9tesqdhf.css",
+      "Route": "custom.css",
       "AssetFile": "/Users/aikoradlingmayr/Git/PRIVAT/ContainerDeck/ContainerDeck.Shared/wwwroot/custom.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -8395,7 +8387,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2128"
+          "Value": "2218"
         },
         {
           "Name": "Content-Type",
@@ -8403,11 +8395,156 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"6ozcrNRDujLZ3D3uKoZUEepzRFi0Q7RBXg7g8dmMyqw=\""
+          "Value": "\"2vtCgRql2sIsUyV4DWEO3yAX2S0LBtwGvBMs80EjilM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 22 Nov 2024 23:01:23 GMT"
+          "Value": "Sat, 23 Nov 2024 21:49:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-2vtCgRql2sIsUyV4DWEO3yAX2S0LBtwGvBMs80EjilM="
+        }
+      ]
+    },
+    {
+      "Route": "custom.css.gz",
+      "AssetFile": "/Users/aikoradlingmayr/Git/PRIVAT/ContainerDeck/ContainerDeck.Shared/obj/Debug/net9.0/compressed/5rm9dfyz1n-i6nmtc7urf.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "772"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"fhKLxoPQAQJ+zvgYWWzcMC9iQkDWHGBOYG3gGXBP1jQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 23 Nov 2024 21:49:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-fhKLxoPQAQJ+zvgYWWzcMC9iQkDWHGBOYG3gGXBP1jQ="
+        }
+      ]
+    },
+    {
+      "Route": "custom.i6nmtc7urf.css",
+      "AssetFile": "/Users/aikoradlingmayr/Git/PRIVAT/ContainerDeck/ContainerDeck.Shared/obj/Debug/net9.0/compressed/5rm9dfyz1n-i6nmtc7urf.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.001293661061"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "772"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"fhKLxoPQAQJ+zvgYWWzcMC9iQkDWHGBOYG3gGXBP1jQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 23 Nov 2024 21:49:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"2vtCgRql2sIsUyV4DWEO3yAX2S0LBtwGvBMs80EjilM=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "i6nmtc7urf"
+        },
+        {
+          "Name": "label",
+          "Value": "custom.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-2vtCgRql2sIsUyV4DWEO3yAX2S0LBtwGvBMs80EjilM="
+        }
+      ]
+    },
+    {
+      "Route": "custom.i6nmtc7urf.css",
+      "AssetFile": "/Users/aikoradlingmayr/Git/PRIVAT/ContainerDeck/ContainerDeck.Shared/wwwroot/custom.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2218"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"2vtCgRql2sIsUyV4DWEO3yAX2S0LBtwGvBMs80EjilM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 23 Nov 2024 21:49:50 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -8417,7 +8554,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "6g9tesqdhf"
+          "Value": "i6nmtc7urf"
         },
         {
           "Name": "label",
@@ -8425,13 +8562,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-6ozcrNRDujLZ3D3uKoZUEepzRFi0Q7RBXg7g8dmMyqw="
+          "Value": "sha256-2vtCgRql2sIsUyV4DWEO3yAX2S0LBtwGvBMs80EjilM="
         }
       ]
     },
     {
-      "Route": "custom.6g9tesqdhf.css.gz",
-      "AssetFile": "/Users/aikoradlingmayr/Git/PRIVAT/ContainerDeck/ContainerDeck.Shared/obj/Debug/net9.0/compressed/5rm9dfyz1n-6g9tesqdhf.gz",
+      "Route": "custom.i6nmtc7urf.css.gz",
+      "AssetFile": "/Users/aikoradlingmayr/Git/PRIVAT/ContainerDeck/ContainerDeck.Shared/obj/Debug/net9.0/compressed/5rm9dfyz1n-i6nmtc7urf.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -8440,7 +8577,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "756"
+          "Value": "772"
         },
         {
           "Name": "Content-Type",
@@ -8448,11 +8585,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"sIDUcJw1sWmnE+SjFp6ZFbrG7JYCecuDEv+BuingOYg=\""
+          "Value": "\"fhKLxoPQAQJ+zvgYWWzcMC9iQkDWHGBOYG3gGXBP1jQ=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 22 Nov 2024 23:01:23 GMT"
+          "Value": "Sat, 23 Nov 2024 21:49:50 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -8470,7 +8607,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "6g9tesqdhf"
+          "Value": "i6nmtc7urf"
         },
         {
           "Name": "label",
@@ -8478,144 +8615,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-sIDUcJw1sWmnE+SjFp6ZFbrG7JYCecuDEv+BuingOYg="
-        }
-      ]
-    },
-    {
-      "Route": "custom.css",
-      "AssetFile": "/Users/aikoradlingmayr/Git/PRIVAT/ContainerDeck/ContainerDeck.Shared/obj/Debug/net9.0/compressed/5rm9dfyz1n-6g9tesqdhf.gz",
-      "Selectors": [
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip",
-          "Quality": "0.001321003963"
-        }
-      ],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "756"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"sIDUcJw1sWmnE+SjFp6ZFbrG7JYCecuDEv+BuingOYg=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Fri, 22 Nov 2024 23:01:23 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "W/\"6ozcrNRDujLZ3D3uKoZUEepzRFi0Q7RBXg7g8dmMyqw=\""
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-6ozcrNRDujLZ3D3uKoZUEepzRFi0Q7RBXg7g8dmMyqw="
-        }
-      ]
-    },
-    {
-      "Route": "custom.css",
-      "AssetFile": "/Users/aikoradlingmayr/Git/PRIVAT/ContainerDeck/ContainerDeck.Shared/wwwroot/custom.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "2128"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"6ozcrNRDujLZ3D3uKoZUEepzRFi0Q7RBXg7g8dmMyqw=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Fri, 22 Nov 2024 23:01:23 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-6ozcrNRDujLZ3D3uKoZUEepzRFi0Q7RBXg7g8dmMyqw="
-        }
-      ]
-    },
-    {
-      "Route": "custom.css.gz",
-      "AssetFile": "/Users/aikoradlingmayr/Git/PRIVAT/ContainerDeck/ContainerDeck.Shared/obj/Debug/net9.0/compressed/5rm9dfyz1n-6g9tesqdhf.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "756"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"sIDUcJw1sWmnE+SjFp6ZFbrG7JYCecuDEv+BuingOYg=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Fri, 22 Nov 2024 23:01:23 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-sIDUcJw1sWmnE+SjFp6ZFbrG7JYCecuDEv+BuingOYg="
+          "Value": "sha256-fhKLxoPQAQJ+zvgYWWzcMC9iQkDWHGBOYG3gGXBP1jQ="
         }
       ]
     },

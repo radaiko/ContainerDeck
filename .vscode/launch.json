@@ -5,7 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "C#: Docker Pilot Web Debug",
+            "name": "C#: ContainerDeck Agent Debug",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/ContainerDeck.Agent/ContainerDeck.Agent.csproj",
+        },
+        {
+            "name": "C#: ContainerDeck Web Debug",
             "type": "dotnet",
             "request": "launch",
             "projectPath": "${workspaceFolder}/ContainerDeck.Web/ContainerDeck.Web.csproj"

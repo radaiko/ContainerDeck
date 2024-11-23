@@ -12,8 +12,9 @@
         <FluentLabel Typo="Typography.Body">@ThisAgent.Address</FluentLabel>
     </div>
     <div style="margin-right: 10px;">
-        <FluentLabel Typo="Typography.H6">@_agentVersion</FluentLabel>
-        <FluentLabel Typo="Typography.Body">@_dockerVersion</FluentLabel>
+        <FluentLabel Typo="Typography.Body">Agent Version: @_agentVersion</FluentLabel>
+        <FluentLabel Typo="Typography.Body">Docker version: @_dockerVersion</FluentLabel>
+        <FluentLabel Typo="Typography.Body">Status: @( _isHealthy ? "Online" : "Offline")</FluentLabel>
     </div>
     <div class="action-bar">
         <FluentButton IconEnd="@(new Icons.Regular.Size24.Edit())" OnClick="() => EditAgent()" />
@@ -28,11 +29,13 @@
 
     private string _agentVersion = "Unknown";
     private string _dockerVersion = "Unknown";
+    private bool _isHealthy = false;
 
     override protected async Task OnInitializedAsync()
     {
         _agentVersion = await ThisAgent.AgentVersion();
         _dockerVersion = await ThisAgent.DockerVersion();
+        _isHealthy = await ThisAgent.IsHealthy();
     }
 
     private DialogParameters GetDialogParameters()
@@ -60,7 +63,6 @@
             AgentsService.Add(ThisAgent);
         }
     }
-
     private void DeleteAgent()
     {
         AgentsService.Delete(ThisAgent);

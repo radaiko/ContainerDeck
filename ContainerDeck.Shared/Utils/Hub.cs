@@ -9,18 +9,14 @@ namespace ContainerDeck.Shared.Utils;
 public static class Hub {
 
     #region Logging ------------------------------------------------------------
-    private static List<ILogger> _loggers = new();
-    private static ILogger GetLogger(string name) {
-        var logger = _loggers.FirstOrDefault(l => l.GetType().Name == name);
-        if (logger == null) {
-            logger = new LoggerFactory().CreateLogger(name);
-            _loggers.Add(logger);
-        }
-        return logger;
-    }
-    public static ILogger GetLogger(Type type) => new LoggerFactory().CreateLogger(type);
 
-    public static ILogger<T> GetLogger<T>() => new LoggerFactory().CreateLogger<T>();
+    public static ILoggerFactory LoggerFactory { get; set; } = new LoggerFactory();
+
+    public static ILogger GetLogger(Type type) => LoggerFactory.CreateLogger(type);
+
+    public static ILogger GetLogger(string name) => LoggerFactory.CreateLogger(name);
+
+    public static ILogger<T> GetLogger<T>() => LoggerFactory.CreateLogger<T>();
 
     public static void LogDebug(string message, [CallerMemberName] string caller = "") {
         var logger = GetLogger(caller);

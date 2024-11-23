@@ -1,4 +1,5 @@
 using ContainerDeck.Shared.Services;
+using ContainerDeck.Shared.Utils;
 using ContainerDeck.Web.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
 
@@ -19,6 +20,8 @@ builder.Services.AddLogging(config => {
     config.AddDebug();
 });
 
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -27,6 +30,9 @@ if (!app.Environment.IsDevelopment()) {
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+// Add a static logger
+Hub.LoggerFactory = app.Services.GetRequiredService<ILoggerFactory>();
 
 app.UseHttpsRedirection();
 
