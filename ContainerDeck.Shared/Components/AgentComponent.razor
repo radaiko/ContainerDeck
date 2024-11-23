@@ -1,0 +1,68 @@
+@using ContainerDeck.Shared.Dialogs
+@using ContainerDeck.Shared.Models
+@using ContainerDeck.Shared.Services
+
+@inject IDialogService DialogService
+@inject AgentsService AgentsService
+
+ <div class="d-flex">
+    <FluentIcon Value="@ThisAgent.AgentIcon" style="margin-right:10px;" />
+    <div style="margin-right: 10px;">
+        <FluentLabel Typo="Typography.H4">@ThisAgent.Name</FluentLabel>
+        <FluentLabel Typo="Typography.Body">@ThisAgent.Address</FluentLabel>
+    </div>
+    <div style="margin-right: 10px;">
+        <FluentLabel Typo="Typography.H6">@_agentVersion</FluentLabel>
+        <FluentLabel Typo="Typography.Body">@_dockerVersion</FluentLabel>
+    </div>
+    <div class="action-bar">
+        <FluentButton IconEnd="@(new Icons.Regular.Size24.Edit())" OnClick="() => EditAgent()" />
+        <FluentButton IconEnd="@(new Icons.Regular.Size24.Delete())" OnClick="() => DeleteAgent()" />
+    </div>
+</div>
+
+@functions
+{
+    [Parameter]
+    public Agent ThisAgent { get; set; } = null!;
+
+    private string _agentVersion = "Unknown";
+    private string _dockerVersion = "Unknown";
+
+    override protected async Task OnInitializedAsync()
+    {
+        _agentVersion = await ThisAgent.AgentVersion();
+        _dockerVersion = await ThisAgent.DockerVersion();
+    }
+
+    private DialogParameters GetDialogParameters()
+    {
+        return new DialogParameters()
+            {
+                Height = "240px",
+                Title = $"Edit agent {ThisAgent.Name}",
+                PreventDismissOnOverlayClick = true,
+                PreventScroll = true,
+            };
+    }
+    private async Task EditAgent()
+    {
+        var data = ThisAgent;
+        var dialog = await DialogService.ShowDialogAsync<AddAgentDialog>(data, GetDialogParameters());
+
+        var result = await dialog.Result;
+        if (!result.Cancelled && result.Data != null)
+        {
+            var agent = (Agent)result.Data;
+            var icon = ThisAgent.AgentIcon;
+            AgentsService.Delete(ThisAgent);
+            ThisAgent = new Agent(agent.Name, agent.Address) { AgentIcon = icon };
+            AgentsService.Add(ThisAgent);
+        }
+    }
+
+    private void DeleteAgent()
+    {
+        AgentsService.Delete(ThisAgent);
+    }
+}    

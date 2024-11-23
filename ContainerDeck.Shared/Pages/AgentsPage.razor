@@ -1,31 +1,29 @@
 @page "/agents"
+@using ContainerDeck.Shared.Components
+@using ContainerDeck.Shared.Dialogs
+@using ContainerDeck.Shared.Models
+@using ContainerDeck.Shared.Services
 @using ContainerDeck.Shared.Utils
 @using Microsoft.Extensions.Logging
+@using static ContainerDeck.Shared.Dialogs.AddAgentDialog
 
 @inject IDialogService DialogService
-@* @inject AgentsService AgentService *@
+@inject AgentsService AgentsService
 
 <PageTitle>Agents</PageTitle>
 
-@* <div class="d-flex">
-    <MudText Typo="Typo.h4">Agents</MudText>
-    <MudSpacer />
-    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="ShowAddAgentDialog">Add New Agent</MudButton>
+<div class="d-flex">
+    <FluentLabel Typo="Typography.H4">Agents</FluentLabel>
+    <FluentSpacer />
+    <FluentIcon Icon="Icons.Filled.Size32.Add" OnClick="AddAgentDialogAsync" />
 </div>
-<MudTable T="Agent" Items="@AgentService.Get()" Hover="true" Class="mt-4">
-    <HeaderContent>
-        <MudTh>Icon</MudTh>
-        <MudTh>Name</MudTh>
-        <MudTh>Address</MudTh>
-        <MudTh>Agent</MudTh>
-        <MudTh>Docker</MudTh>
-        <MudTh>Actions</MudTh>
-    </HeaderContent>
-    <RowTemplate>
-        <AgentRow Agent="context"></AgentRow>
-    </RowTemplate>
-</MudTable> *@
-
+<FluentDivider />
+<div class="component-table">
+    @foreach (var agent in @AgentsService.Get())
+    {
+        <AgentComponent ThisAgent="agent"></AgentComponent>
+    }
+</div>
 
 @code
 {
@@ -36,27 +34,41 @@
     {
         if (firstRender)
         {
-            @* Action d = async () => await UpdateUi();
-            AgentService.Detach(d);
-            AgentService.AgentsChanged += d; *@
+            Action d = async () => await UpdateUi();
+            AgentsService.Detach(d);
+            AgentsService.AgentsChanged += d;
         }
     }
 
-    @* private async Task UpdateUi()
+    private async Task UpdateUi()
     {
         Logger.LogDebug("UpdateUi");
         await InvokeAsync(StateHasChanged);
     }
-    private async Task ShowAddAgentDialog()
-    {
-        var parameters = new DialogParameters<AddAgentDialog> { { x => x.OnSave, EventCallback.Factory.Create<Agent>(this,
-AddAgent) } };
-        var options = new DialogOptions { MaxWidth = MaxWidth.ExtraLarge, FullWidth = true };
-        await DialogService.ShowAsync<AddAgentDialog>("", parameters, options);
-    } *@
 
-    private void AddAgent(Agent agent)
+    private DialogParameters GetDialogParameters()
     {
-        @* AgentService.Add(agent); *@
+        return new DialogParameters()
+            {
+                Height = "240px",
+                Title = $"Add a new container deck agent",
+                PreventDismissOnOverlayClick = true,
+                PreventScroll = true,
+            };
     }
+
+    private async Task AddAgentDialogAsync()
+    {
+        var data = new Agent("Local", "http://localhost:5000");
+        var dialog = await DialogService.ShowDialogAsync<AddAgentDialog>(data, GetDialogParameters());
+
+        var result = await dialog.Result;
+        if (!result.Cancelled && result.Data != null)
+        {
+            var agent = (Agent)result.Data;
+            AgentsService.Add(agent);
+        }
+    }
+
+   
 }

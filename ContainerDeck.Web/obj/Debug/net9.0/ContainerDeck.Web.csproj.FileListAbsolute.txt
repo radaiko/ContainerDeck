@@ -87,3 +87,4 @@
 /Users/aikoradlingmayr/Git/PRIVAT/ContainerDeck/ContainerDeck.Web/obj/Debug/net9.0/ContainerDeck.Web.pdb
 /Users/aikoradlingmayr/Git/PRIVAT/ContainerDeck/ContainerDeck.Web/obj/Debug/net9.0/ContainerDeck.Web.genruntimeconfig.cache
 /Users/aikoradlingmayr/Git/PRIVAT/ContainerDeck/ContainerDeck.Web/obj/Debug/net9.0/ref/ContainerDeck.Web.dll
+/Users/aikoradlingmayr/Git/PRIVAT/ContainerDeck/ContainerDeck.Web/bin/Debug/net9.0/~/temp/appData/ContainerDeck/config/settings.json

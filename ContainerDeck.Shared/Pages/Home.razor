@@ -1,18 +1,21 @@
 ﻿@page "/"
-@using ContainerDeck.Shared.Services
+
+
+@inject ILogger<Home> Logger
 
 <PageTitle>Home</PageTitle>
 
 @code
 {
     [Inject]
-    private NavigationManager Navigation { get; set; }
+    private NavigationManager? Navigation { get; set; }
 
     protected override void OnAfterRender(bool firstRender)
     {
         if (firstRender)
         {
-            Navigation.NavigateTo("/dashboard");
+            Logger.LogInformation("Navigating to /dashboard");
+            Navigation?.NavigateTo("/dashboard");
         }
     }
 }

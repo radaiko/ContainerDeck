@@ -114,11 +114,6 @@
           },
           "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
         }
-      },
-      "runtimes": {
-        "maccatalyst-arm64": {
-          "#import": []
-        }
       }
     },
     "/Users/aikoradlingmayr/Git/PRIVAT/ContainerDeck/ContainerDeck/ContainerDeck.csproj": {
@@ -314,6 +309,15 @@
         }
       },
       "runtimes": {
+        "android-arm64": {
+          "#import": []
+        },
+        "android-x64": {
+          "#import": []
+        },
+        "iossimulator-arm64": {
+          "#import": []
+        },
         "maccatalyst-arm64": {
           "#import": []
         }

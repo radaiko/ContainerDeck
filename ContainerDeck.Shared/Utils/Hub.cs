@@ -1,20 +1,18 @@
 using System.Runtime.CompilerServices;
+using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace ContainerDeck.Shared.Utils;
 
 #region class Hub ----------------------------------------------------------------------------------
-public static class Hub
-{
+public static class Hub {
 
     #region Logging ------------------------------------------------------------
     private static List<ILogger> _loggers = new();
-    private static ILogger GetLogger(string name)
-    {
+    private static ILogger GetLogger(string name) {
         var logger = _loggers.FirstOrDefault(l => l.GetType().Name == name);
-        if (logger == null)
-        {
+        if (logger == null) {
             logger = new LoggerFactory().CreateLogger(name);
             _loggers.Add(logger);
         }
@@ -24,26 +22,22 @@ public static class Hub
 
     public static ILogger<T> GetLogger<T>() => new LoggerFactory().CreateLogger<T>();
 
-    public static void LogDebug(string message, [CallerMemberName] string caller = "")
-    {
+    public static void LogDebug(string message, [CallerMemberName] string caller = "") {
         var logger = GetLogger(caller);
         logger.LogDebug(message);
     }
 
-    public static void LogWarning(string message, [CallerMemberName] string caller = "")
-    {
+    public static void LogWarning(string message, [CallerMemberName] string caller = "") {
         var logger = GetLogger(caller);
         logger.LogWarning(message);
     }
-    public static void LogError(string message, [CallerMemberName] string caller = "")
-    {
+    public static void LogError(string message, [CallerMemberName] string caller = "") {
         var logger = GetLogger(caller);
         logger.LogError(message);
     }
     #endregion
 
-    private static IConfigurationRoot GetConfig()
-    {
+    private static IConfigurationRoot GetConfig() {
         var config = new ConfigurationBuilder()
           .SetBasePath(Directory.GetCurrentDirectory())
           .AddJsonFile("appsettings.json")
@@ -53,18 +47,38 @@ public static class Hub
 
     }
 
-    public static string GetSettingsPath()
-    {
+    public static string GetSettingsPath() {
         var config = GetConfig();
-        return Path.Combine(config["ConfigFolder"] ?? string.Empty, "settings.json");
+        var configFolder = config["ConfigFolder"];
+        if (string.IsNullOrEmpty(configFolder)) {
+            throw new InvalidOperationException("ConfigFolder is not set in the configuration.");
+        }
+        return Path.Combine(PathFix(configFolder), "settings.json");
     }
 
     public static string? ClientId { get; } = Guid.NewGuid().ToString();
 
-    public static bool IsDevelopment()
-    {
+    public static bool IsDevelopment() {
         var config = GetConfig();
         return config["Environment"] == "Development";
+    }
+
+    public static JsonSerializerOptions DefaultJsonOptions() => new() { WriteIndented = true };
+
+    public static void FileWriteAllTextForce(string path, string content) {
+        path = PathFix(path);
+        var directory = Path.GetDirectoryName(path);
+        if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory)) {
+            Directory.CreateDirectory(directory);
+        }
+        File.WriteAllText(path, content);
+    }
+
+    public static string PathFix(string path) {
+        if (path.StartsWith('~')) {
+            path = path.Replace("~", Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));
+        }
+        return path;
     }
 }
 #endregion

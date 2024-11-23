@@ -3,23 +3,16 @@ using ContainerDeck.Shared.Models;
 using ContainerDeck.Shared.Utils;
 using Microsoft.Extensions.Logging;
 using Microsoft.FluentUI.AspNetCore.Components;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
-namespace ContainerDeck.Shared;
+namespace ContainerDeck.Shared.Models;
 
-public class Agent {
-    #region Constructors -------------------------------------------------------
-    public Agent(string name, string address) {
-        Name = name;
-        Address = address;
-        AgentIcon = GetRandomIcon();
-    }
-    #endregion
-
+public class Agent(string name, string address) {
     #region Public Properties --------------------------------------------------
-    public Icon AgentIcon { get; set; }
-    public string Name { get; set; }
-    public string Address { get; set; }
-    public List<string> Logs { get; set; } = [];
+    public Icon AgentIcon { get; set; } = GetRandomIcon();
+    public string Name { get; set; } = name;
+    public string Address { get; set; } = address;
     #endregion
 
     #region Public Properties Methods ------------------------------------------
@@ -36,7 +29,10 @@ public class Agent {
     #region IconHandling ------------------------------------------------------
 
     public static Icon GetRandomIcon() {
-        return (Icon)(typeof(Icons.Regular.Size48).GetFields()[new Random().Next(0, typeof(Icons.Regular.Size48).GetFields().Length)].GetValue(null) ?? new Icon());
+        var classesOfNamespace = typeof(Icons.Regular.Size32).GetNestedTypes();
+        var randomIndex = new Random().Next(0, classesOfNamespace.Length);
+        var selectedClass = classesOfNamespace[randomIndex];
+        return (Icon)Activator.CreateInstance(selectedClass)!;
     }
 
     #endregion
@@ -85,4 +81,25 @@ public class Agent {
     }
 
     #endregion
+}
+
+public class JsonConverterAgent : JsonConverter<Agent> {
+    public override Agent? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) {
+        var json = JsonDocument.ParseValue(ref reader);
+        var root = json.RootElement;
+        var name = root.GetProperty("Name").GetString() ?? throw new JsonException("Name property is missing or null.");
+        var address = root.GetProperty("Address").GetString() ?? throw new JsonException("Address property is missing or null.");
+        var iconName = root.GetProperty("AgentIcon").GetString();
+        var iconType = typeof(Icons.Regular.Size32).GetNestedTypes().FirstOrDefault(t => t.Name == iconName) ?? throw new JsonException($"Icon type {iconName} not found.");
+        var icon = (Icon)Activator.CreateInstance(iconType)!;
+        return new Agent(name, address) { AgentIcon = icon };
+    }
+
+    public override void Write(Utf8JsonWriter writer, Agent value, JsonSerializerOptions options) {
+        writer.WriteStartObject();
+        writer.WriteString("Name", value.Name);
+        writer.WriteString("Address", value.Address);
+        writer.WriteString("AgentIcon", value.AgentIcon.Name);
+        writer.WriteEndObject();
+    }
 }
