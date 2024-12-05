@@ -12,6 +12,10 @@ service DockerContainer {
   rpc GetContainer (ProtoContainerRequest) returns (ProtoContainerResponse){};
   rpc GetContainerInspect (ProtoContainerInspectRequest) returns (ProtoContainerInspectResponse){};
   rpc StreamLog (ProtoContainerLogRequest) returns (stream ProtoContainerLogResponse){};
+  rpc StartContainer (ProtoContainerRequest) returns (google.protobuf.Empty){};
+  rpc StopContainer (ProtoContainerRequest) returns (google.protobuf.Empty){};
+  rpc RestartContainer (ProtoContainerRequest) returns (google.protobuf.Empty){};
+  rpc RemoveContainer (ProtoContainerRequest) returns (google.protobuf.Empty){};
 }
 
 // General Container 

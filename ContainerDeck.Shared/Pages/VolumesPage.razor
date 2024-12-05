@@ -1,0 +1,28 @@
+@page "/volumes"
+@using ContainerDeck.Shared.Components
+@using ContainerDeck.Shared.Models
+@using ContainerDeck.Shared.Services
+
+@inject AgentsService AgentsService
+
+<PageTitle>Volumes</PageTitle>
+
+<div class="row-space-between">
+    <span>Volumes</span>
+</div>
+<hr />
+<div class="component-table">
+    @foreach (var volume in volumes)
+    {
+        <VolumeComponent This="volume"></VolumeComponent>
+    }
+</div>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        volumes = await AgentsService.GetVolumesList();
+    }
+
+    private List<Volume> volumes = new List<Volume>();
+}

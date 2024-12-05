@@ -118,6 +118,26 @@ public static class GrpcWrapper {
             yield return entry.Message;
         }
     }
+
+    public static async Task StartContainer(string baseUrl, string containerId) {
+        var client = GrpcFactory.GetClient<DockerContainer.DockerContainerClient>(baseUrl);
+        await client.StartContainerAsync(new ProtoContainerRequest() { Id = containerId });
+    }
+
+    public static async Task StopContainer(string baseUrl, string containerId) {
+        var client = GrpcFactory.GetClient<DockerContainer.DockerContainerClient>(baseUrl);
+        await client.StopContainerAsync(new ProtoContainerRequest() { Id = containerId });
+    }
+
+    public static async Task RestartContainer(string baseUrl, string containerId) {
+        var client = GrpcFactory.GetClient<DockerContainer.DockerContainerClient>(baseUrl);
+        await client.RestartContainerAsync(new ProtoContainerRequest() { Id = containerId });
+    }
+
+    public static async Task RemoveContainer(string baseUrl, string containerId) {
+        var client = GrpcFactory.GetClient<DockerContainer.DockerContainerClient>(baseUrl);
+        await client.RemoveContainerAsync(new ProtoContainerRequest() { Id = containerId });
+    }
     #endregion
 
     #region Volume Endpoints -----------------------------------------------------

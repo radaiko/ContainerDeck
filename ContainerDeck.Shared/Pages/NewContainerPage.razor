@@ -1,0 +1,59 @@
+@page "/containers/add"
+@using ContainerDeck.Shared.Components
+@using ContainerDeck.Shared.Models
+@using ContainerDeck.Shared.Services
+
+@inject AgentsService AgentsService
+
+<PageTitle>New Container</PageTitle>
+
+<div class="form-group">
+    <label for="agentSelect">Select Agent:</label>
+    <select id="agentSelect" @bind="selectedAgentName" class="form-control">
+        @foreach (var agent in agents)
+        {
+            <option value="@agent.Name">@agent.Name</option>
+        }
+    </select>
+</div>
+
+
+<div class="form-group">
+    <label for="containerType">Select Type:</label>
+    <select id="containerType" @bind="selectedType" class="form-control">
+        <option value="Container">Container</option>
+        <option value="Stack/Compose">Stack/Compose</option>
+    </select>
+</div>
+
+@if (selectedType == "Container")
+{
+   <NewContainerComponent />
+}
+
+
+@code {
+    private string selectedType = "Container";
+    private string selectedAgentName = string.Empty;
+    private Agent? selectedAgent => agents.FirstOrDefault(a => a.Name == selectedAgentName);
+    private List<Agent> agents = new List<Agent>();
+    private List<Container> newContainers = new List<Container>();
+
+    protected override void OnInitialized()
+    {
+        agents = AgentsService.GetAgentsList();
+    }
+
+    private string dockerRunCommand = string.Empty;
+
+
+    private async Task Run()
+    {
+        if (selectedAgent == null) return;
+        if (selectedType == "Container")
+             await AgentsService.RunNewContainer(selectedAgent, newContainers.First());
+        else
+            await AgentsService.RunNewStack(selectedAgent, newContainers);
+    }
+
+}

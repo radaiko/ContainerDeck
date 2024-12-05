@@ -6,11 +6,10 @@ using ContainerDeck.Shared.Protos;
 namespace ContainerDeck.Shared.Models;
 
 #region class Container ----------------------------------------------------------------------------
-public class Container
-{
+public class Container {
   #region Properties -----------------------------------------------------------
   // Stats
-  public string? Id { get; set; }
+  public string Id { get; set; }
 
   public ContainerStatus Status { get; set; } = ContainerStatus.Unknown;
   public double MemoryUsage { get; set; } = 0;
@@ -48,11 +47,7 @@ public class Container
   #endregion
 
   #region Constructor ----------------------------------------------------------
-  [JsonConstructor]
-  public Container() { }
-
-  public Container(ContainerListResponse baseInfo, ContainerStatsResponse stats, ContainerInspectResponse inspect, string[] logs)
-  {
+  public Container(ContainerListResponse baseInfo, ContainerStatsResponse stats, ContainerInspectResponse inspect, string[] logs) {
     // Config
     Id = baseInfo.ID;
     Name = baseInfo.Names[0].TrimStart('/');
@@ -61,18 +56,15 @@ public class Container
     Status = baseInfo.State.Equals("exited", StringComparison.OrdinalIgnoreCase)
       ? ContainerStatus.Unknown
       : Enum.Parse<ContainerStatus>(baseInfo.State, true);
-    foreach (var port in baseInfo.Ports)
-    {
+    foreach (var port in baseInfo.Ports) {
       if (port.PrivatePort == 0 || port.PublicPort == 0) continue;
       Ports.Add(new PortMapping { HostPort = port.PublicPort, ContainerPort = port.PrivatePort });
     }
-    foreach (var mounts in baseInfo.Mounts)
-    {
+    foreach (var mounts in baseInfo.Mounts) {
       if (mounts == null) continue;
       Volumes.Add(new VolumeMapping { HostPath = mounts.Source, ContainerPath = mounts.Destination }); ;
     }
-    foreach (var kv in baseInfo.Labels)
-    {
+    foreach (var kv in baseInfo.Labels) {
       Labels.Add(new EnvironmentMapping { Name = kv.Key, Value = kv.Value });
     }
 
@@ -81,16 +73,14 @@ public class Container
     MemoryLimit = stats.MemoryStats.Limit;
     if (stats.CPUStats.OnlineCPUs == 0)
       CpuUsage = 0;
-    else
-    {
+    else {
       var cpuDelta = stats.CPUStats.CPUUsage.TotalUsage - stats.PreCPUStats.CPUUsage.TotalUsage;
       var systemCpuDelta = stats.CPUStats.SystemUsage - stats.PreCPUStats.SystemUsage;
       CpuUsage = (cpuDelta / (double)systemCpuDelta * stats.CPUStats.OnlineCPUs * 100.0).Round(2);
     }
     NetworkUsage = 0;
     if (stats.Networks == null || !stats.Networks.Any()) return;
-    foreach (var network in stats.Networks)
-    {
+    foreach (var network in stats.Networks) {
       var rxBytes = network.Value.RxBytes;
       var txBytes = network.Value.TxBytes;
       NetworkUsage += rxBytes + txBytes;
@@ -101,8 +91,7 @@ public class Container
     Logs = logs;
   }
 
-  public Container(ProtoContainerResponse protoContainer)
-  {
+  public Container(ProtoContainerResponse protoContainer) {
     Id = protoContainer.Stats.Id;
     Name = protoContainer.Config.Name;
     Image = protoContainer.Config.Image;
@@ -115,25 +104,21 @@ public class Container
     CpuUsage = protoContainer.Stats.CpuUsage;
     LastStarted = protoContainer.Stats.LastStarted.ToDateTime();
     NetworkUsage = protoContainer.Stats.NetworkRx + protoContainer.Stats.NetworkTx;
-    Restart = protoContainer.Config.RestartPolicy switch
-    {
+    Restart = protoContainer.Config.RestartPolicy switch {
       "always" => RestartPolicyKind.Always,
       "unless-stopped" => RestartPolicyKind.UnlessStopped,
       "on-failure" => RestartPolicyKind.OnFailure,
       _ => RestartPolicyKind.No
     };
-    foreach (var port in protoContainer.Config.Ports)
-    {
+    foreach (var port in protoContainer.Config.Ports) {
       var parts = port.Split(':');
       Ports.Add(new PortMapping { HostPort = Convert.ToInt32(parts[0]), ContainerPort = Convert.ToInt32(parts[1]) });
     }
-    foreach (var volume in protoContainer.Config.Volumes)
-    {
+    foreach (var volume in protoContainer.Config.Volumes) {
       var parts = volume.Split(':');
       Volumes.Add(new VolumeMapping { HostPath = parts[0], ContainerPath = parts[1] });
     }
-    foreach (var label in protoContainer.Config.Labels)
-    {
+    foreach (var label in protoContainer.Config.Labels) {
       var parts = label.Split('=');
       Labels.Add(new EnvironmentMapping { Name = parts[0], Value = parts[1] });
     }
@@ -141,13 +126,11 @@ public class Container
   #endregion
 
   #region Public Methods -------------------------------------------------------
-  public void StoreStatistic()
-  {
+  public void StoreStatistic() {
     Statistics.Add(new Statistic { CpuUsage = CpuUsage, MemoryUsage = MemoryUsage });
   }
 
-  public void Merge(Container container)
-  {
+  public void Merge(Container container) {
     Status = container.Status;
     MemoryUsage = container.MemoryUsage;
     MemoryLimit = container.MemoryLimit;
@@ -166,8 +149,7 @@ public class Container
   #region Nested Classes ---------------------------------------------------------------------------
 
   #region class PortMapping ------------------------------------------------------------------------
-  public class PortMapping()
-  {
+  public class PortMapping() {
     public int? HostPort { get; set; }
     public int? ContainerPort { get; set; }
 
@@ -176,8 +158,7 @@ public class Container
   #endregion
 
   #region class VolumeMapping ----------------------------------------------------------------------
-  public class VolumeMapping()
-  {
+  public class VolumeMapping() {
     public string? HostPath { get; set; }
     public string? ContainerPath { get; set; }
     public override string ToString() => $"{HostPath}:{ContainerPath}";
@@ -185,8 +166,7 @@ public class Container
   #endregion
 
   #region class EnvironmentMapping -----------------------------------------------------------------
-  public class EnvironmentMapping()
-  {
+  public class EnvironmentMapping() {
     public string? Name { get; set; }
     public string? Value { get; set; }
     public override string ToString() => $"{Name}={Value}";
@@ -194,8 +174,7 @@ public class Container
   #endregion
 
   #region class Statistic --------------------------------------------------------------------------
-  public class Statistic()
-  {
+  public class Statistic() {
     public DateTime Timestamp { get; set; } = DateTime.Now;
     public double CpuUsage { get; set; }
     public double MemoryUsage { get; set; }
@@ -207,42 +186,34 @@ public class Container
 #endregion
 
 #region class Containers ---------------------------------------------------------------------------
-public class Containers
-{
+public class Containers {
   #region Private Properties ---------------------------------------------------
   [JsonInclude]
   private List<Container> _containers { get; set; } = [];
   #endregion
 
   #region Public Methods -------------------------------------------------------
-  public void Clear()
-  {
+  public void Clear() {
     _containers.Clear();
   }
 
-  public void MergeContainers(List<Container> containers)
-  {
+  public void MergeContainers(List<Container> containers) {
     // Remove containers not in the new list
     _containers.RemoveAll(c => containers.All(newContainer => newContainer.Id != c.Id));
 
     // Add or update containers
-    foreach (var container in containers)
-    {
+    foreach (var container in containers) {
       var existingContainer = _containers.FirstOrDefault(c => c.Id == container.Id);
-      if (existingContainer != null)
-      {
+      if (existingContainer != null) {
         existingContainer.Merge(container);
       }
-      else
-      {
+      else {
         _containers.Add(container);
       }
     }
   }
-  public void StoreStatistics()
-  {
-    foreach (Container container in _containers)
-    {
+  public void StoreStatistics() {
+    foreach (Container container in _containers) {
       container.StoreStatistic();
     }
   }
@@ -264,8 +235,7 @@ public class Containers
 #endregion
 
 #region enum ContainerStatus -----------------------------------------------------------------------
-public enum ContainerStatus
-{
+public enum ContainerStatus {
   Unknown,
   Running,
   Exited,

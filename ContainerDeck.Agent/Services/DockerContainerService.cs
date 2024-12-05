@@ -50,7 +50,7 @@ public class DockerContainerService : DockerContainer.DockerContainerBase {
 
     // stats
     double cpuUsage = 0;
-    if (containerStats.CPUStats.OnlineCPUs == 0)
+    if (containerStats.CPUStats == null || containerStats.CPUStats.OnlineCPUs == 0)
       cpuUsage = 0;
     else {
       var cpuDelta = containerStats.CPUStats.CPUUsage.TotalUsage - containerStats.PreCPUStats.CPUUsage.TotalUsage;
@@ -61,8 +61,8 @@ public class DockerContainerService : DockerContainer.DockerContainerBase {
     var stats = new ProtoContainerStats();
     stats.Id = container.ID;
     stats.Status = container.State;
-    stats.MemoryUsage = containerStats.MemoryStats.Usage;
-    stats.MemoryLimit = containerStats.MemoryStats.Limit;
+    stats.MemoryUsage = containerStats.MemoryStats == null ? 0 : containerStats.MemoryStats.Usage;
+    stats.MemoryLimit = containerStats.MemoryStats == null ? 0 : containerStats.MemoryStats.Limit;
     stats.CpuUsage = cpuUsage;
     stats.LastStarted = Convert.ToDateTime(containerInspect.State.StartedAt).ToUniversalTime().ToProtoTimestamp();
     if (containerStats.Networks == null || containerStats.Networks.Count == 0) {
@@ -98,5 +98,25 @@ public class DockerContainerService : DockerContainer.DockerContainerBase {
     );
     await logs;
     logger.LogDebug("StreamLog ended");
+  }
+
+  public override async Task<Empty> StartContainer(ProtoContainerRequest request, ServerCallContext context) {
+    await DockerWrapper.StartContainer(request.Id);
+    return new Empty();
+  }
+
+  public override async Task<Empty> StopContainer(ProtoContainerRequest request, ServerCallContext context) {
+    await DockerWrapper.StopContainer(request.Id);
+    return new Empty();
+  }
+
+  public override async Task<Empty> RestartContainer(ProtoContainerRequest request, ServerCallContext context) {
+    await DockerWrapper.RestartContainer(request.Id);
+    return new Empty();
+  }
+
+  public override async Task<Empty> RemoveContainer(ProtoContainerRequest request, ServerCallContext context) {
+    await DockerWrapper.RemoveContainer(request.Id);
+    return new Empty();
   }
 }

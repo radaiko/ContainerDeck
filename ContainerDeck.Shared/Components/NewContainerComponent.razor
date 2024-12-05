@@ -1,0 +1,67 @@
+@using ContainerDeck.Shared.Models
+@using Docker.DotNet.Models
+
+<div>
+    @* input field for name of the container if empty mark red *@
+    @* input field for image of the cotnainer if empty mark red *@
+    @* multi input field to easy add port mapping *@
+</div>
+
+
+<div class="card card-vertical">
+    <div class="card-header">
+        <label for="containerName">Container Name:</label>
+        <input type="text" id="containerName" @bind="name" />
+    </div>
+    <div class="card-body">
+        <div class="form-group">
+            <label for="containerImage">Image:</label>
+            <input type="text" id="containerImage" @bind="image"/>
+        </div>
+        <div class="form-group">
+            <label>Ports:</label>
+            <button type="button" @onclick="() => ports.Add(new Container.PortMapping())">Add</button>
+            @foreach (var port in ports) {
+                <div class="form-group">
+                    <input type="number" placeholder="HostPort" @bind="port.HostPort" />
+                    <span> : </span>
+                    <input type="number" placeholder="ContainerPort" @bind="port.ContainerPort"/>
+                    <button type="button" @onclick="() => ports.Remove(port)">Remove</button>
+                </div>
+            }
+        </div>
+        <div class="form-group">
+            <label>Volumes:</label>
+            <button type="button" @onclick="() => volumes.Add(new Container.VolumeMapping())">Add</button>
+            @foreach (var volume in volumes) {
+                <div class="form-group">
+                    <input type="text" placeholder="HostPath" @bind="volume.HostPath" />
+                    <span> : </span>
+                    <input type="text" placeholder="ContainerPath" @bind="volume.ContainerPath" />
+                    <button type="button" @onclick="() => volumes.Remove(volume)">Remove</button>
+                </div>
+            }
+        </div>
+        <div class="form-group">
+            <label for="containerRestart">Restart:</label>
+            <select id="containerRestart" @bind="restart" >
+                @foreach (var kind in Enum.GetValues(typeof(RestartPolicyKind)).Cast<RestartPolicyKind>()) {
+                    <option value="@kind">@kind</option>
+                }
+            </select>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    private string name = string.Empty;
+    private string image = string.Empty;
+    private List<Container.PortMapping> ports = new List<Container.PortMapping>();
+    private List<Container.VolumeMapping> volumes = new List<Container.VolumeMapping>();
+    private RestartPolicyKind restart = RestartPolicyKind.No;
+
+
+    public Container? This { get; set; }
+
+}

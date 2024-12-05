@@ -1,0 +1,29 @@
+@page "/images"
+@using ContainerDeck.Shared.Components
+@using ContainerDeck.Shared.Models
+@using ContainerDeck.Shared.Services
+
+@inject AgentsService AgentsService
+
+<PageTitle>Images</PageTitle>
+
+<div class="row-space-between">
+    <span>Images</span>
+    <div style="flex-grow: 1;"></div>
+</div>
+<hr />
+<div class="component-table">
+    @foreach (var image in images)
+    {
+        <ImageComponent This="image"></ImageComponent>
+    }
+</div>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        images = await AgentsService.GetImagesList();
+    }
+
+    private List<Image> images = new List<Image>();
+}

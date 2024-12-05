@@ -1,0 +1,370 @@
+/* Colors */
+:root {
+    --primary-color: #0366d6;
+    --secondary-color: #6a737d;
+    --success-color: #28a745;
+    --danger-color: #d73a49;
+    --warning-color: #ffcc00;
+    --info-color: #79b8ff;
+    --light-color: #f6f8fa;
+    --dark-color: #24292e;
+    --background-color: #0D1116;
+    --backgroubd-color-secondary: #666666;
+    --background-color-alternative: #262a2e;
+    --text-color: #E6EDF3;
+    --text-color-inverted: #ffffff;
+    --muted-text-color: #7C8590;
+}
+
+/* Body */
+html,
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 5px;
+    width: calc(100vw - 35px);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 98vh
+}
+
+.main-container {
+    flex: 1;
+    margin: 10px;
+    width: calc(100vw - 50px - 16px - 16px);
+}
+
+/* Sidebar */
+.sidebar {
+    width: auto;
+    /* align-self: center; */
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid var(--muted-text-color);
+    background-color: var(--background-color-alternative);
+    height: 98vh;
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nav-icon {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.nav-icon:hover {
+    background-color: var(--backgroubd-color-secondary);
+    color: var(--text-color-inverted);
+}
+
+.nav-link-hover {
+    position: relative;
+    width: 50px;
+    z-index: 9999;
+    color: var(--text-color);
+}
+
+.nav-link-hover::after {
+    position: absolute;
+    left: 100%;
+    /*transform: translateX(25%);*/
+    top: 80%;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.nav-link-hover:hover::after {
+    opacity: 1;
+    background: var(--background-color);
+    padding: 5px;
+    width: auto;
+    color: var(--text-color);
+}
+
+.nav-link-hover-dashboard::after {
+    content: "Dashboard";
+}
+
+.nav-link-hover-images::after {
+    content: "Images";
+}
+
+.nav-link-hover-containers::after {
+    content: "Containers";
+}
+
+.nav-link-hover-logViewer::after {
+    content: "Log Viewer";
+}
+
+.nav-link-hover-compose::after {
+    content: "Compose";
+}
+
+.nav-link-hover-agents::after {
+    content: "Agents";
+}
+
+.nav-link-hover-volumes::after {
+    content: "Volumes";
+}
+
+/* Default */
+.spacer {
+    flex-grow: 1;
+}
+
+.flex {
+    display: flex;
+}
+
+.row-space-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.row-space-horizontal-center {
+    display: flex;
+    align-self: center;
+}
+
+input[type="text"],
+input[type="number"],
+select,
+button[type="button"] {
+    background-color: var(--background-color-alternative);
+    color: var(--text-color);
+    border: 1px solid var(--muted-text-color);
+    border-radius: 5px;
+    padding: 5px;
+}
+
+/* Button */
+.btn {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    padding: 5px 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Dialog */
+.overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.dialog {
+    width: 750px;
+    background-color: var(--background-color);
+    border-radius: 10px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    /* padding: 1rem; */
+}
+
+.dialog .dialog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+}
+
+.dialog .dialog-body {
+    padding: 0.5rem;
+}
+
+.dialog .dialog-footer {
+    padding: 0.5rem;
+}
+
+
+.close {
+    height: 40px;
+    width: 40px;
+    background-color: transparent;
+    transition: 0.25s ease;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.close:hover {
+    background-color: #DDD;
+}
+
+/* Card */
+.card {
+    background-color: var(--background-color-alternative);
+    color: var(--text-color);
+    border: 1px solid var(--muted-text-color);
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 0 0 10px rgba(150, 150, 150, 0.5);
+}
+
+.card-horizontal {
+    display: flex;
+    flex-direction: row;
+}
+
+.card-vertical {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-icon {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+    overflow: hidden;
+    color: var(--text-color);
+    margin-left: 5px;
+    margin-right: 5px;
+    display: flex;
+    align-self: center;
+}
+
+.card-content-horizontal {
+    display: flex;
+    margin-right: auto;
+    width: 100%;
+    flex-direction: column;
+}
+
+.row span {
+    margin-right: 25px;
+}
+
+.muted {
+    color: var(--muted-text-color);
+}
+
+.subtext {
+    font-size: 0.8em;
+    color: var(--muted-text-color);
+}
+
+
+.card-footer-horizontal {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.card-footer-vertical {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.horizontal {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.vertical {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Margin */
+.ma-4 {
+    margin: 1rem;
+}
+
+.ma-8 {
+    margin: 2rem;
+}
+
+.mt-4 {
+    margin-top: 1rem;
+}
+
+.mt-8 {
+    margin-top: 2rem;
+}
+
+.mb-4 {
+    margin-bottom: 1rem;
+}
+
+.mb-8 {
+    margin-bottom: 2rem;
+}
+
+.ml-4 {
+    margin-left: 1rem;
+}
+
+.ml-8 {
+    margin-left: 2rem;
+}
+
+.mr-4 {
+    margin-right: 1rem;
+}
+
+.mr-8 {
+    margin-right: 2rem;
+}
+
+/* Padding */
+
+.pa-4 {
+    padding: 1rem;
+}
+
+.pa-8 {
+    padding: 2rem;
+}
+
+.pt-4 {
+    padding-top: 1rem;
+}
+
+.pt-8 {
+    padding-top: 2rem;
+}
+
+.pb-4 {
+    padding-bottom: 1rem;
+}
+
+.pb-8 {
+    padding-bottom: 2rem;
+}
+
+.pl-4 {
+    padding-left: 1rem;
+}
+
+.pl-8 {
+    padding-left: 2rem;
+}
+
+.pr-4 {
+    padding-right: 1rem;
+}
+
+.pr-8 {
+    padding-right: 2rem;
+}

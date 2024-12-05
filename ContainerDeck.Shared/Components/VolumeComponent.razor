@@ -1,0 +1,38 @@
+@using ContainerDeck.Shared.Models
+@using ContainerDeck.Shared.Services
+@using ContainerDeck.Shared.Utils
+
+@inject AgentsService AgentsService
+
+<div class="card card-horizontal">
+    <div class="card-icon">
+        <svg class="card-icon" aria-hidden="true">
+            @* <use href="@ThisImage.ContainerIcon"></use> *@
+        </svg>
+    </div>
+    <div class="card-content-horizontal">
+        <div class="row">
+            <span><b>@This.Name</b></span>
+            <span class="muted">@This.Usage</span>
+        </div>
+        <div class="row">
+            <span class="subtext">Mountpoint: @This.Mountpoint</span>
+            <span class="subtext">Status: @This.Status</span>
+            <span class="subtext">Created: @This.Created</span>
+        </div>
+    </div>
+    <div class="card-footer-vertical">
+        <button class="btn icon-btn" @onclick="() => Delete()"> <i class="icon icon-delete"></i></button>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public Volume This { get; set; } = null!;
+
+    private async Task Delete()
+    {
+        //TODO: delete the image from the correct agentπ
+        //await AgentsService.RemoveImage(ThisImage.Id!);
+    }
+}

@@ -1,8 +1,6 @@
 using Docker.DotNet.Models;
-using ContainerDeck.Shared.Models;
 using ContainerDeck.Shared.Utils;
 using Microsoft.Extensions.Logging;
-using Microsoft.FluentUI.AspNetCore.Components;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 
@@ -10,7 +8,7 @@ namespace ContainerDeck.Shared.Models;
 
 public class Agent(string name, string address) {
     #region Public Properties --------------------------------------------------
-    public Icon AgentIcon { get; set; } = GetRandomIcon();
+    public string AgentIcon { get; set; } = GetRandomIcon();
     public string Name { get; set; } = name;
     public string Address { get; set; } = address;
     #endregion
@@ -26,18 +24,26 @@ public class Agent(string name, string address) {
     private readonly ILogger _logger = Hub.GetLogger(typeof(Agent));
     #endregion
 
-    #region IconHandling ------------------------------------------------------
+    #region IconHandling -------------------------------------------------------
 
-    public static Icon GetRandomIcon() {
-        var classesOfNamespace = typeof(Icons.Regular.Size32).GetNestedTypes();
-        var randomIndex = new Random().Next(0, classesOfNamespace.Length);
-        var selectedClass = classesOfNamespace[randomIndex];
-        return (Icon)Activator.CreateInstance(selectedClass)!;
+    public static string GetRandomIcon() {
+        var icons = new List<string>
+        {
+            "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 2L2 7v6c0 5.25 3.75 10 10 10s10-4.75 10-10V7l-10-5z'/></svg>",
+            "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='12' cy='12' r='10'/></svg>",
+            "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='20' height='20' x='2' y='2' rx='5' ry='5'/></svg>",
+            "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 2L2 22h20L12 2z'/></svg>",
+            "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 2a10 10 0 100 20 10 10 0 000-20z'/></svg>"
+        };
+
+        var random = new Random();
+        int index = random.Next(icons.Count);
+        return icons[index];
     }
 
     #endregion
 
-    #region ContainerHandling --------------------------------------------------
+    #region Container Handling -------------------------------------------------
     public async Task<List<Container>> GetContainersList() {
         List<Container> containers = [];
         _logger.LogDebug($"Fetching containers for agent: {Name}");
@@ -72,6 +78,31 @@ public class Agent(string name, string address) {
         _logger.LogDebug($"Fetching container inspect for ID: {id}");
         return await GrpcWrapper.GetContainerInspect(Address, id);
     }
+
+    public async Task StartContainer(string id) {
+        _logger.LogDebug($"Starting container with ID: {id}");
+        await GrpcWrapper.StartContainer(Address, id);
+    }
+
+    public async Task StopContainer(string id) {
+        _logger.LogDebug($"Stopping container with ID: {id}");
+        await GrpcWrapper.StopContainer(Address, id);
+    }
+
+    public async Task RestartContainer(string id) {
+        _logger.LogDebug($"Restarting container with ID: {id}");
+        await GrpcWrapper.RestartContainer(Address, id);
+    }
+
+    public async Task RemoveContainer(string id) {
+        _logger.LogDebug($"Removing container with ID: {id}");
+        await GrpcWrapper.RemoveContainer(Address, id);
+    }
+
+    public async Task RunNewContainer(Container container) {
+        _logger.LogDebug($"Running new container on agent: {Name}");
+        //await GrpcWrapper.RunNewContainer(Address, image, name, command, ports, volumes, environmentVariables); // TODO Implement
+    }
     #endregion
 
     #region VolumeHandling -----------------------------------------------------
@@ -89,17 +120,15 @@ public class JsonConverterAgent : JsonConverter<Agent> {
         var root = json.RootElement;
         var name = root.GetProperty("Name").GetString() ?? throw new JsonException("Name property is missing or null.");
         var address = root.GetProperty("Address").GetString() ?? throw new JsonException("Address property is missing or null.");
-        var iconName = root.GetProperty("AgentIcon").GetString();
-        var iconType = typeof(Icons.Regular.Size32).GetNestedTypes().FirstOrDefault(t => t.Name == iconName) ?? throw new JsonException($"Icon type {iconName} not found.");
-        var icon = (Icon)Activator.CreateInstance(iconType)!;
-        return new Agent(name, address) { AgentIcon = icon };
+        var icon = root.GetProperty("AgentIcon").GetString();
+        return new Agent(name, address) { AgentIcon = icon ?? string.Empty };
     }
 
     public override void Write(Utf8JsonWriter writer, Agent value, JsonSerializerOptions options) {
         writer.WriteStartObject();
         writer.WriteString("Name", value.Name);
         writer.WriteString("Address", value.Address);
-        writer.WriteString("AgentIcon", value.AgentIcon.Name);
+        writer.WriteString("AgentIcon", value.AgentIcon);
         writer.WriteEndObject();
     }
 }

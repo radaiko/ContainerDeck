@@ -5,30 +5,45 @@
 @using ContainerDeck.Shared.Services
 @using ContainerDeck.Shared.Utils
 @using Microsoft.Extensions.Logging
-@using static ContainerDeck.Shared.Dialogs.AddAgentDialog
 
-@inject IDialogService DialogService
 @inject AgentsService AgentsService
 
 <PageTitle>Agents</PageTitle>
 
-<div class="d-flex">
-    <FluentLabel Typo="Typography.H4">Agents</FluentLabel>
-    <FluentSpacer />
-    <FluentIcon Icon="Icons.Filled.Size32.Add" OnClick="AddAgentDialogAsync" />
+<div class="row-space-between">
+    <span>Agents</span>
+    <div class="spacer"></div>
+    <button class="btn icon-btn row-space-horizontal-center" @onclick="() => AddAgentDialog()">
+        <i class="icon icon-add"></i>
+    </button>
 </div>
-<FluentDivider />
+<hr />
 <div class="component-table">
     @foreach (var agent in @AgentsService.Get())
     {
-        <AgentComponent ThisAgent="agent"></AgentComponent>
+        <AgentComponent This="agent"></AgentComponent>
     }
 </div>
+
+<BaseDialog Title="Add new Agent" Opened="dialogShown">
+    <BodyContent>
+        <AgentDialog Agent=newAgent></AgentDialog>
+    </BodyContent>
+
+    <FooterContent>
+        <button class="btn save-button" @onclick="() => SaveAgent()">Save</button>
+        <button class="btn cancel-button" @onclick="() => dialogShown = false">Cancel</button>
+    </FooterContent>
+</BaseDialog>
 
 @code
 {
     [Inject]
     private ILogger<AgentsPage> Logger { get; set; } = Hub.GetLogger<AgentsPage>();
+
+    private Agent newAgent = new Agent("Local", "http://localhost:5000");
+
+    private bool dialogShown = false;
 
     protected override void OnAfterRender(bool firstRender)
     {
@@ -46,29 +61,14 @@
         await InvokeAsync(StateHasChanged);
     }
 
-    private DialogParameters GetDialogParameters()
+    private void AddAgentDialog()
     {
-        return new DialogParameters()
-            {
-                Height = "240px",
-                Title = $"Add a new container deck agent",
-                PreventDismissOnOverlayClick = true,
-                PreventScroll = true,
-            };
+        var newAgent = new Agent("Local", "http://localhost:5000");
+        dialogShown = true;
     }
 
-    private async Task AddAgentDialogAsync()
-    {
-        var data = new Agent("Local", "http://localhost:5000");
-        var dialog = await DialogService.ShowDialogAsync<AddAgentDialog>(data, GetDialogParameters());
-
-        var result = await dialog.Result;
-        if (!result.Cancelled && result.Data != null)
-        {
-            var agent = (Agent)result.Data;
-            AgentsService.Add(agent);
-        }
+    private void SaveAgent() {
+        AgentsService.Add(newAgent);
+        dialogShown = false;
     }
-
-   
 }

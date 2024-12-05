@@ -1,0 +1,55 @@
+@using ContainerDeck.Shared.Models
+@using ContainerDeck.Shared.Services
+@using ContainerDeck.Shared.Utils
+
+@inject AgentsService AgentsService
+
+<div class="card card-horizontal">
+    <div class="card-icon">
+        <svg class="card-icon" aria-hidden="true">
+            @* <use href="@ThisContainer.ContainerIcon"></use> *@
+        </svg>
+    </div>
+    <div class="card-content-horizontal">
+        <div class="row">
+            <span><b>@This.Name</b></span>
+            <span class="muted">@This.Image</span>
+        </div>
+        <div class="row">
+            <span class="subtext">Id: @This.Id.ToShortId()</span>
+            <span class="subtext">Status: @This.Status</span>
+            <span class="subtext">Ports: @This.PortsFormatted()</span>
+            <span class="subtext">Last started: @This.AgeFormatted()</span>
+        </div>
+    </div>
+    <div class="card-footer-vertical">
+        <button class="btn icon-btn" @onclick="() => StartContainer()"> <i class="icon icon-start"></i></button>
+        <button class="btn icon-btn" @onclick="() => RestartContainer()"> <i class="icon icon-restart"></i></button>
+        <button class="btn icon-btn" @onclick="() => StopContainer()"> <i class="icon icon-stop"></i></button>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public Container This{ get; set; } = null!;
+
+    private async Task StartContainer()
+    {
+        await AgentsService.StartContainer(This.Id!);
+    }
+
+    private async Task RestartContainer() 
+    {
+        await AgentsService.RestartContainer(This.Id!);
+    }
+
+    private async Task StopContainer()
+    {
+        await AgentsService.StopContainer(This.Id!);
+    }
+
+    private async Task RemoveContainer()
+    {
+        await AgentsService.RemoveContainer(This.Id!);
+    }
+}

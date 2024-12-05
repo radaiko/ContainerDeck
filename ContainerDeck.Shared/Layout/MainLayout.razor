@@ -2,27 +2,24 @@
 
 @inject NavigationManager NavigationManager
 
-<FluentToastProvider />
-<FluentDialogProvider />
-<FluentTooltipProvider />
-<FluentMessageBarProvider />
-<FluentMenuProvider />
-
-<FluentDesignTheme StorageName="theme" />
-
-<div class="d-flex">
+<div class="flex">
     <div class="sidebar">
-        <FluentIcon Value="@(new Icons.Regular.Size24.AppFolder())" @onclick="() => NavigateToPath(DashboardPath)"
-            class="nav-link-hover nav-link-hover-dashboard nav-icon" />
-        <FluentIcon Value="@(new Icons.Regular.Size24.Image())" @onclick="() => NavigateToPath(ImagesPath)"
-            class="nav-link-hover nav-link-hover-images nav-icon" />
-        <FluentIcon Value="@(new Icons.Regular.Size24.Cube())" @onclick="() => NavigateToPath(ContainersPath)"
-            class="nav-link-hover nav-link-hover-containers nav-icon" />
-        <FluentIcon Value="@(new Icons.Regular.Size24.Database())" @onclick="() => NavigateToPath(VolumesPath)"
-            class="nav-link-hover nav-link-hover-volumes nav-icon" />
-        <FluentIcon Value="@(new Icons.Regular.Size24.ScanPerson())" @onclick="() => NavigateToPath(AgentsPath)"
-            class="nav-link-hover nav-link-hover-agents nav-icon" />
-    </div>
+        <button class="icon-btn nav-link-hover nav-link-hover-dashboard" @onclick="() => NavigateToPath(DashboardPath)">
+            <i class="icon icon-gauge nav-icon"></i>
+        </button>
+        <button class="icon-btn nav-link-hover nav-link-hover-images" @onclick="() => NavigateToPath(ImagesPath)">
+            <i class="icon icon-image nav-icon"></i>
+        </button>
+        <button class="icon-btn nav-link-hover nav-link-hover-containers" @onclick="() => NavigateToPath(ContainersPath)">
+            <i class="icon icon-container nav-icon"></i>
+        </button>
+        <button class="icon-btn nav-link-hover nav-link-hover-volumes" @onclick="() => NavigateToPath(VolumesPath)">
+            <i class="icon icon-volume nav-icon"></i>
+        </button>
+        <button class="icon-btn nav-link-hover nav-link-hover-agents" @onclick="() => NavigateToPath(AgentsPath)">
+            <i class="icon icon-agent nav-icon"></i>
+        </button>
+        </div>
     <div class="main-container ma-4">
         @Body
     </div>

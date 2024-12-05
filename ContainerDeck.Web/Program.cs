@@ -1,7 +1,6 @@
 using ContainerDeck.Shared.Services;
 using ContainerDeck.Shared.Utils;
 using ContainerDeck.Web.Components;
-using Microsoft.FluentUI.AspNetCore.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,16 +10,10 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddSingleton<AgentsService>();
 
-builder.Services.AddFluentUIComponents(options => {
-    options.ValidateClassNames = false;
-});
-
 builder.Services.AddLogging(config => {
     config.AddConsole();
     config.AddDebug();
 });
-
-
 
 var app = builder.Build();
 

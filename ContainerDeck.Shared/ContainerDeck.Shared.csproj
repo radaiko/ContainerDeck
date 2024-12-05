@@ -12,9 +12,6 @@
       <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="9.0.0" />
       <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0" />
       <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.0" />
-      <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.10.4" />
-      <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.6.0" />
-      <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.10.4" />
       <PackageReference Include="Google.Protobuf" Version="3.28.3" />
       <PackageReference Include="Grpc.Core" Version="2.46.6" />
       <PackageReference Include="Grpc.Net.Client" Version="2.47.0" />

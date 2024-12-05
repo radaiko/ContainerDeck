@@ -1,0 +1,39 @@
+@page "/containers"
+@using ContainerDeck.Shared.Components
+@using ContainerDeck.Shared.Models
+@using ContainerDeck.Shared.Services
+
+@inject AgentsService AgentsService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Containers</PageTitle>
+
+<div class="row-space-between">
+    <span>Containers</span>
+    <div class="spacer"></div>
+    <button class="btn icon-btn row-space-horizontal-center" @onclick="() => AddDialog()">
+        <i class="icon icon-add"></i>
+    </button>
+</div>
+<hr />
+<div class="component-table">
+    @foreach (var container in containers)
+    {
+        <ContainerComponent This="container"></ContainerComponent>
+    }
+</div>
+
+@code {
+    
+    protected override async Task OnInitializedAsync()
+    {
+        containers = await AgentsService.GetContainersList();
+    }
+
+    private List<Container> containers = new List<Container>();
+
+    private void AddDialog()
+    {
+        NavigationManager.NavigateTo("/containers/add");
+    }
+}

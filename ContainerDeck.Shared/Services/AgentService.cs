@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 using ContainerDeck.Shared.Models;
 using ContainerDeck.Shared.Utils;
@@ -39,6 +40,8 @@ public class AgentsService {
         _agents.Remove(agent);
         Save();
     }
+
+    public List<Agent> GetAgentsList() => _agents;
 
     public Agent? GetAgentByContainerId(string containerId) {
         foreach (var agent in _agents.Where(agent => agent.DoesAgentContainsContainer(containerId))) {
@@ -103,9 +106,40 @@ public class AgentsService {
             yield return log;
         }
     }
+
+    public async Task StartContainer(string containerId) {
+        var agent = GetAgentByContainerId(containerId) ?? throw new InvalidOperationException($"No agent found for container ID {containerId}");
+        await agent.StartContainer(containerId);
+    }
+
+    public async Task StopContainer(string containerId) {
+        var agent = GetAgentByContainerId(containerId) ?? throw new InvalidOperationException($"No agent found for container ID {containerId}");
+        await agent.StopContainer(containerId);
+    }
+
+    public async Task RestartContainer(string containerId) {
+        var agent = GetAgentByContainerId(containerId) ?? throw new InvalidOperationException($"No agent found for container ID {containerId}");
+        await agent.RestartContainer(containerId);
+    }
+
+    public async Task RemoveContainer(string containerId) {
+        var agent = GetAgentByContainerId(containerId) ?? throw new InvalidOperationException($"No agent found for container ID {containerId}");
+        await agent.RemoveContainer(containerId);
+    }
+
+    public async Task RunNewContainer(Agent agent, Container container) {
+        await agent.RunNewContainer(container);
+    }
+
     #endregion
 
-    #region Volume handling ------------------------------------------------------
+    #region Stack handling -----------------------------------------------------
+    public async Task RunNewStack(Agent agent, List<Container> stack) {
+        //await agent.RunNewStack(stack); // TODO: implement
+    }
+    #endregion
+
+    #region Volume handling ----------------------------------------------------
     public async Task<Volume[]> GetVolumesArray() {
         var volumes = await GetVolumesList();
         return [.. volumes];
